@@ -1,0 +1,60 @@
+#########################################################################################
+#                 / _(_)         ^ ^                                                     #
+#  ___ ___  _ __ | |_ _  __ _   (O,o) < ....?                        )   #
+# / __/ _ \| '_ \|  _| |/ _` |  ( O )  (complete this file and run the bash command: )   #
+#| (_| (_) | | | | | | | (_| | --"-"-- (python ....."      )   #
+# \___\___/|_| |_|_| |_|\__, |                                                          #
+#                        __/ |             For support, please contact                  #
+#                       |___/   .........     #
+#########################################################################################
+
+
+# Input configuration
+input:
+  path: ./data                          # Directory where input files are located
+  file_name: Country_data_template.csv  # Name of the input CSV file
+
+# Output configuration
+output:
+  path: ./output                        # Directory where output files will be saved
+  file_name: LCOE_.csv                  # Name of the output CSV file
+
+# Data column mappings
+data_columns:
+  student_count: student_count          # Column name for student count in the input data
+  student_population: all_pop           # Column name for total student population
+  student_school: pop_per_school        # Column name for population per school
+  baterry_size: bat_kw_t                # Column name for battery size in kW
+  pv_size: pv_kw_t                      # Column name for photovoltaic size in kW
+
+# Photovoltaic parameters
+pv_parameters:
+  costs:
+    pv_eur: 715                         # PV module price in EUR per kWp
+    bat_eur: 245                        # Battery price in EUR per kWh
+    bos_eur: 1000                       # Balance of System (BOS) price in EUR per kWh
+    soft_cost: 1.33                     # Percentage of soft costs
+    pv_infra: 1.4                       # Percentage of infrastructure costs for PV
+    bat_infra: 1.8                      # Percentage of infrastructure costs for batteries
+
+  OEM:
+    O_M: 0.02                           # Operation and Maintenance (O&M) cost as a fraction
+    t_PV: 20                            # Expected lifetime of PV systems in years
+    r: 0.05                             # Discount rate for financial calculations
+    life_time_bat: 10                   # Expected lifetime of lithium-ion batteries in years
+
+  LCA:                                  # Life Cycle Assessment parameters for CO2 emissions calculation
+    diesel: 0.35                        # CO2 emissions factor for diesel
+    PV: 0.02                            # CO2 emissions factor for PV
+
+# LCOE parameters for demand calculation
+lcoe_parameters:
+  students:
+    p_low: 50                           # Lower limit for the number of pupils
+    p_high: 1000                        # Upper limit for the number of pupils
+
+  demand:
+    e_low: 12                           # Demand parameter for populations <= p_low
+    e_medium: 840                       # Demand parameter for populations > p_low and <= p_high
+    e_high: 12000                       # Demand parameter for populations > p_high
+
