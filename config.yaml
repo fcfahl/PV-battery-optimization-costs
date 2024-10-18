@@ -12,12 +12,12 @@
 # Input configuration
 input:
   path: ./data                          # Directory where input files are located
-  file_name: Country_data_template.csv  # Name of the input CSV file
+  file_name: Data_Sample.csv            # Name of the input CSV file
 
 # Output configuration
 output:
   path: ./output                        # Directory where output files will be saved
-  file_name: LCOE_.csv                  # Name of the output CSV file
+  file_name: LCOE_calculation.csv       # Name of the output CSV file
 
 # Data column mappings
 data_columns:

@@ -27,8 +27,7 @@ def handle_exceptions(func):
         try:
             return func(*args, **kwargs)
         except Exception as e:
-            print(f"Error in {func.__name__}: {e}")
-            print_message(f"\n... Error in {func.__name__}: {e}", style="bold red")
+            print_message(f"\n... Error in {func.__name__}: {e}")
     return wrapper
 
 

@@ -22,22 +22,15 @@ import libs.models as mdl
 def main():
     """
     Main function to execute the LCOE calculation workflow.
-
-    This function performs the following steps:
-    1. Initializes the Constructor to load configuration settings from the config.yaml file.
-    2. Sets up input/output file paths using the configuration.
-    3. Initializes the LCEO processing parameters.
-    4. Loads the input data from a CSV file into a DataFrame.
-    5. Calculates the Levelized Cost of Energy (LCOE) using the loaded data.
-    6. Saves the resulting DataFrame with LCOE calculations to a CSV file.
-
     The function is intended to be run as a standalone script.
     """
 
-    # Initialize the Constructor to load configuration settings
+    utl.print_message('START', tab=0)
+
+    # Initializes the Constructor to load configuration settings from the config.yaml file.
     cnt = mdl.Constructor()
 
-    # Set up input and output file paths
+    # Sets up input/output file paths using the configuration.
     io = cnt.set_IO()
 
     # Initialize the LCEO processing parameters
@@ -52,10 +45,13 @@ def main():
     # Save the resulting DataFrame with LCOE calculations to the specified output CSV file
     utl.save_df_to_csv(df_lcoe, io.out_file)
 
+    utl.print_message('END', tab=0)
+
     # print (df_lcoe)
 
 
 if __name__ == "__main__":
-    utl.print_message('START', tab=0)
+
+
     main()
-    utl.print_message('END', tab=0)
+

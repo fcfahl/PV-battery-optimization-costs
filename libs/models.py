@@ -5,7 +5,7 @@ from typing import ClassVar
 
 import pandas as pd
 import libs.utils as utl
-import libs.LCOE_calculation as lcoe
+import libs.process as lcoe
 
 @dataclass
 class IO():
