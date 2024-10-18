@@ -18,6 +18,8 @@ __date__          = "Oct 8 2024"
 import libs.utils as utl
 import libs.models as mdl
 
+from libs.utils import save_df_to_csv, print_message
+
 
 def main():
     """
@@ -25,7 +27,7 @@ def main():
     The function is intended to be run as a standalone script.
     """
 
-    utl.print_message('START', tab=0)
+    print_message('START', tab=0)
 
     # Initializes the Constructor to load configuration settings from the config.yaml file.
     cnt = mdl.Constructor()
@@ -43,15 +45,13 @@ def main():
     df_lcoe = prc.calculate_LCOE(df_data)
 
     # Save the resulting DataFrame with LCOE calculations to the specified output CSV file
-    utl.save_df_to_csv(df_lcoe, io.out_file)
+    save_df_to_csv(df_lcoe, io.out_file)
 
-    utl.print_message('END', tab=0)
+    print_message('END', tab=0)
 
     # print (df_lcoe)
 
 
 if __name__ == "__main__":
 
-
     main()
-

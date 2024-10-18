@@ -51,7 +51,7 @@ class LCEO():
 
         _df = df.copy()
 
-        utl.print_message('Calculating demand')
+        utl.print_message('Calculating Demand')
 
         _df['demand_e'] = _df.apply(
             lcoe.calculate_demand,
@@ -65,7 +65,7 @@ class LCEO():
             pop_high        = self.lcoe_parameters.students.p_high,
         )
 
-        utl.print_message('Calculating PV and battery sizes')
+        utl.print_message('Calculating PV and Battery Sizes')
 
         _df[['pv_kw_e', 'bat_kw_e']] = _df.apply(
             lcoe.calculate_pv_size,
