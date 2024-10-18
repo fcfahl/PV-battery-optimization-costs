@@ -5,7 +5,7 @@ import numpy as np
 from libs.utils import handle_exceptions
 
 @handle_exceptions
-def calculate_demand(row: pd.Series, student_count, student_school, e_low, e_medium, e_high, pop_low, pop_high) -> float:
+def calculate_demand(row:pd.Series, student_count:float, student_school:float, e_low:float, e_medium:float, e_high:float, pop_low:int, pop_high:int) -> float:
     """
     Calculate demand based on student count and school metrics.
 
@@ -16,8 +16,8 @@ def calculate_demand(row: pd.Series, student_count, student_school, e_low, e_med
     Parameters:
         row (pd.Series): A Pandas Series representing a row of data containing
                         student count and school metrics.
-        student_count (str): The key in the row for the student count.
-        student_school (str): The key in the row for the school metric.
+        student_count (float): Total number of students.
+        student_school (float): Number of students per school.
         e_low (float): The multiplier for low demand based on student count.
         e_medium (float): The multiplier for medium demand based on student count.
         e_high (float): The value for high demand when student count exceeds the threshold.
@@ -35,7 +35,7 @@ def calculate_demand(row: pd.Series, student_count, student_school, e_low, e_med
     """
 
     # Handle student_count
-    student_count   = row[student_count] or 0
+    student_count   = row[student_count]
     student_school  = row[student_school]
 
     # Default case
@@ -86,9 +86,9 @@ def calculate_pv_size(row: pd.Series, pv_kw_t:float, bat_kw_t:float) -> Tuple[fl
         and the function will return (0.0, 0.0) as the default values.
     """
 
-    demand_e    = row['demand_e'] or 0
-    pv_kw_t     = row['pv_kw_t'] or 0
-    bat_kw_t    = row['bat_kw_t'] or 0
+    demand_e    = row['demand_e']
+    pv_kw_t     = row['pv_kw_t']
+    bat_kw_t    = row['bat_kw_t']
 
     try:
         pv_kw_e  = (pv_kw_t * demand_e) / (300 * 365)
@@ -125,8 +125,8 @@ def calculate_capex(row: pd.Series, pv_costs:float, bat_costs:float, oem:float, 
         (NaN, NaN) for both CAPEX values.
     """
 
-    pv_kw_e    = row['pv_kw_e'] or 0
-    bat_kw_e   = row['bat_kw_e'] or 0
+    pv_kw_e    = row['pv_kw_e']
+    bat_kw_e   = row['bat_kw_e']
 
     pv         = pv_kw_e * pv_costs
     bat        = bat_kw_e * bat_costs
@@ -134,7 +134,7 @@ def calculate_capex(row: pd.Series, pv_costs:float, bat_costs:float, oem:float, 
     try:
         capex       = soft_cost * (pv + bat)
         capex_oem   = capex * oem
-    except:
+    except Exception as e:
         capex = np.nan
         capex_oem = np.nan
 
@@ -169,9 +169,9 @@ def calculate_npv_e(row: pd.Series, bat_costs:float, t_pv:int, r:float, bat_life
         years, except for the last year of the analysis period.
     """
 
-    capex       = row['capex'] or 0
-    capex_oem   = row['capex_oem'] or 0
-    bat_kw_e    = row['bat_kw_e'] or 0
+    capex       = row['capex']
+    capex_oem   = row['capex_oem']
+    bat_kw_e    = row['bat_kw_e']
 
     try:
 
@@ -186,7 +186,7 @@ def calculate_npv_e(row: pd.Series, bat_costs:float, t_pv:int, r:float, bat_life
 
             npv_e += replace_battery_cost + capex_oem / pow((1+r),year)
 
-    except:
+    except Exception as e:
         npv_e = np.nan
 
     return round(npv_e,2)
@@ -214,11 +214,11 @@ def calculate_npv_demand_e(row: pd.Series, t_pv:int, r:float) -> float:
         specified time period.
     """
 
-    demand_e    = row['demand_e'] or 0
+    demand_e    = row['demand_e']
 
     try:
         npv_demand_e = sum((demand_e) / pow((1+r),x) for x in range(0, t_pv+1))
-    except:
+    except Exception as e:
         npv_demand_e = np.nan
 
     return round(npv_demand_e,2)
@@ -244,12 +244,12 @@ def calculate_lcoe_e(row: pd.Series) -> float:
         - The function assumes that the NPV of demand is not zero to avoid division by zero.
     """
 
-    npv_e        = row['npv_e'] or 0
-    npv_demand_e = row['npv_demand_e'] or 0
+    npv_e        = row['npv_e']
+    npv_demand_e = row['npv_demand_e']
 
     try:
         lcoe_e = (npv_e) / (npv_demand_e) # range from 0.05 to 0.8
-    except:
+    except Exception as e:
         lcoe_e = np.nan
 
     return round(lcoe_e,4)
@@ -281,9 +281,8 @@ def calculate_opex(row: pd.Series, bat_costs:float, t_pv:int, bat_life_time:int)
         years, except for the last year of the analysis period.
     """
 
-    capex_oem   = row['capex_oem'] or 0
-    # pv_kw_e     = row['pv_kw_e'] or 0
-    bat_kw_e    = row['bat_kw_e'] or 0
+    capex_oem   = row['capex_oem']
+    bat_kw_e    = row['bat_kw_e']
 
     try:
 
@@ -300,7 +299,7 @@ def calculate_opex(row: pd.Series, bat_costs:float, t_pv:int, bat_life_time:int)
 
         opex = opex_acc / (t_pv ) # * pv_kw_e
 
-    except:
+    except Exception as e:
         opex = np.nan
 
     return round(opex,2)
@@ -329,11 +328,11 @@ def calculate_co2_e(row: pd.Series, lca_diesel:float, lca_pv:float) -> float:
         for diesel and PV, multiplied by the energy demand, and converted to tons.
     """
 
-    demand_e   = row['demand_e'] or 0
+    demand_e   = row['demand_e']
 
     try:
         co2_e = ((lca_diesel - lca_pv) * demand_e) / 1000
-    except:
+    except Exception as e:
         co2_e = np.nan
 
     return round(co2_e,4)
