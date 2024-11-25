@@ -17,10 +17,9 @@ To install the PV-battery-optimization-costs tool, follow these steps:
 To use the PV-battery-optimization-costs tool, follow these steps:
 
 1. Open the project in your favorite code editor.
-2. Modify the config.yaml file to fit your needs. Make sure the input parameters are correct.
-3. Run the project: **`python LCOE_calculation`**
+2. Modify the **`config.yaml`** file to fit your needs. Make sure the input parameters are correct.
+3. Run the project: **`python LCOE_calculation.py`**
 4. Collect the output results in the folder indicated in the config file (output session)
-
 
 ## **License**
 
