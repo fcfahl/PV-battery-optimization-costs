@@ -27,7 +27,7 @@ Project is released under the MIT license See the **[LICENSE]** file for details
 
 ## **Authors and Acknowledgment**
 
-Project created by **[Fernando Fahl](https://github.com/fcfahl)** and **[Magda Moner-Girona](magda.moner@ext.ec.europa.eu)**
+Project created by **[Fernando Fahl](https://github.com/fcfahl)** and **[Magda Moner-Girona](emailto:magda.moner@ext.ec.europa.eu)**
 
 
 
