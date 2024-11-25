@@ -7,12 +7,11 @@
 
 """ description """
 
-__credits__       = "..."
-__authors__       = "..."
-__copyright__     = "..."
-__license__       = "check licence file"
+__authors__       = "Moner, M. and Fahl, F."
+__license__       = "https://data.jrc.ec.europa.eu/licence/com_reuse"
 __version__       = "1.0.0"
-__date__          = "Oct 8 2024"
+__date__          = "Nov 18th, 2024"
+__paper__         = "http://..."
 
 #===========================================================================#
 import libs.utils as utl

@@ -57,7 +57,6 @@ class LCEO():
             lcoe.calculate_demand,
             axis=1,
             student_count   = self.data_columns.student_count,
-            student_school  = self.data_columns.student_school,
             e_low           = self.lcoe_parameters.demand.e_low,
             e_medium        = self.lcoe_parameters.demand.e_medium,
             e_high          = self.lcoe_parameters.demand.e_high,

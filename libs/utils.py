@@ -170,7 +170,7 @@ def load_df_from_csv(path) -> pd.DataFrame:
     return pd.read_csv(path)
 
 @handle_exceptions
-def save_df_to_csv(df, path) -> None:
+def save_df_to_csv(df, path, index=False) -> None:
     """
     Save a DataFrame to a CSV file.
 
@@ -183,7 +183,7 @@ def save_df_to_csv(df, path) -> None:
     """
 
     create_folder(path.parent)
-    df.to_csv(path)
+    df.to_csv(path, index=index)
 
 # _______________ PRINT
 

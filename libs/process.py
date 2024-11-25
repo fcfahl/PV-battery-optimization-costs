@@ -5,7 +5,7 @@ import numpy as np
 from libs.utils import handle_exceptions, print_message
 
 @handle_exceptions
-def calculate_demand(row:pd.Series, student_count:float, student_school:float, e_low:float, e_medium:float, e_high:float, pop_low:int, pop_high:int) -> float:
+def calculate_demand(row:pd.Series, student_count:float, e_low:float, e_medium:float, e_high:float, pop_low:int, pop_high:int) -> float:
     """
     Calculate demand based on student count and school metrics.
 
@@ -16,8 +16,8 @@ def calculate_demand(row:pd.Series, student_count:float, student_school:float, e
     Parameters:
         row (pd.Series): A Pandas Series representing a row of data containing
                         student count and school metrics.
-        student_count (float): Total number of students.
-        student_school (float): Number of students per school.
+        student_count (float): Modeled number of students per school.
+        student_school (float): Real number of students per school.
         e_low (float): The multiplier for low demand based on student count.
         e_medium (float): The multiplier for medium demand based on student count.
         e_high (float): The value for high demand when student count exceeds the threshold.
@@ -36,7 +36,6 @@ def calculate_demand(row:pd.Series, student_count:float, student_school:float, e
 
     # Handle student_count
     student_count   = row[student_count]
-    student_school  = row[student_school]
 
     # Default case
     demand_e = np.nan
@@ -48,15 +47,6 @@ def calculate_demand(row:pd.Series, student_count:float, student_school:float, e
         demand_e = e_high
     elif 0 < student_count <= pop_low:
         demand_e = e_medium
-
-    # Calculate demand based on student_school if student_count doesn't satisfy
-    if np.isnan(demand_e):  # Check if demand_e hasn't been set by student_count
-        if student_school > pop_high:
-            demand_e = e_high
-        elif pop_low < student_school <= pop_high:
-            demand_e = student_school * e_low
-        elif 0 < student_school <= pop_low:
-            demand_e = e_medium
 
     return round(float(demand_e),2)
 

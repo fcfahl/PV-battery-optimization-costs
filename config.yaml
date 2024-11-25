@@ -1,11 +1,11 @@
 #########################################################################################
-#                 / _(_)         ^ ^                                                     #
-#  ___ ___  _ __ | |_ _  __ _   (O,o) < ....?                        )   #
-# / __/ _ \| '_ \|  _| |/ _` |  ( O )  (complete this file and run the bash command: )   #
-#| (_| (_) | | | | | | | (_| | --"-"-- (python ....."      )   #
+#                 / _(_)         ^ ^                                                    #
+#  ___ ___  _ __ | |_ _  __ _   (O,o)                                                   #
+# / __/ _ \| '_ \|  _| |/ _` |  ( O )  (complete this file and run the bash command: )  #
+#| (_| (_) | | | | | | | (_| | --"-"-- (python LCOE_calculation)                        #
 # \___\___/|_| |_|_| |_|\__, |                                                          #
-#                        __/ |             For support, please contact                  #
-#                       |___/   .........     #
+#                        __/ |                                                          #
+#                       |___/   .........                                               #
 #########################################################################################
 
 
@@ -21,9 +21,7 @@ output:
 
 # Data column mappings
 data_columns:
-  student_count: student_count          # Column name for student count in the input data
-  student_population: all_pop           # Column name for total student population
-  student_school: pop_per_school        # Column name for population per school
+  student_count: student_count          # Column name for student count per school
   baterry_size: bat_kw_t                # Column name for battery size in kW
   pv_size: pv_kw_t                      # Column name for photovoltaic size in kW
 
